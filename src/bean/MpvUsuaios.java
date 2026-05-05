@@ -131,5 +131,5 @@ public class MpvUsuaios {
     public void setMpvAtivo(String mpvAtivo) {
         this.mpvAtivo = mpvAtivo;
     }
-    
+    public abstract void metodoAbstract();
 }
