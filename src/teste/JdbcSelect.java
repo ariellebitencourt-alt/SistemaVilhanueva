@@ -4,6 +4,7 @@
  */
 package teste;
 
+import dao.UsuariosDAO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -38,9 +39,9 @@ public class JdbcSelect {
               
               
          } catch (ClassNotFoundException ex) {
-             Logger.getLogger(JdbcCrud.class.getName()).log(Level.SEVERE, null, ex);
+             Logger.getLogger(UsuariosDAO.class.getName()).log(Level.SEVERE, null, ex);
          } catch (SQLException ex) {
-             Logger.getLogger(JdbcCrud.class.getName()).log(Level.SEVERE, null, ex);
+             Logger.getLogger(UsuariosDAO.class.getName()).log(Level.SEVERE, null, ex);
          }
          System.out.println("rodou");
     }    

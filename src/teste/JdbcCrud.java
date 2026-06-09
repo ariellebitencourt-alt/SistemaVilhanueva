@@ -5,6 +5,7 @@
 package teste;
 
 
+import dao.UsuariosDAO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.Connection;
@@ -48,9 +49,9 @@ public class JdbcCrud {
               
               
          } catch (ClassNotFoundException ex) {
-             Logger.getLogger(JdbcCrud.class.getName()).log(Level.SEVERE, null, ex);
+             Logger.getLogger(UsuariosDAO.class.getName()).log(Level.SEVERE, null, ex);
          } catch (SQLException ex) {
-             Logger.getLogger(JdbcCrud.class.getName()).log(Level.SEVERE, null, ex);
+             Logger.getLogger(UsuariosDAO.class.getName()).log(Level.SEVERE, null, ex);
          }
          System.out.println("rodou");
     }

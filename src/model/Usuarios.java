@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package bean;
+package model;
 
 import java.util.Date;
 
@@ -10,7 +10,7 @@ import java.util.Date;
  *
  * @author u11174571179
  */
-public class MpvUsuaios {
+public class Usuarios{
     private int mpvidUsuarios;
     private String mpvNome;
     private String mvpApelido;
@@ -131,5 +131,5 @@ public class MpvUsuaios {
     public void setMpvAtivo(String mpvAtivo) {
         this.mpvAtivo = mpvAtivo;
     }
-    public abstract void metodoAbstract();
 }
+

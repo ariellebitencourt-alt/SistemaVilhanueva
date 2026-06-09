@@ -4,7 +4,10 @@
  */
 package view;
 
+import dao.UsuariosDAO;
+import model.Usuarios;
 import javax.swing.JOptionPane;
+import util.Conversor;
 
 /**
  *
@@ -14,6 +17,7 @@ public class JDlgMpvUsuarios extends javax.swing.JDialog {
 
     /**
      * Creates new form JDlgMpvUsuarios
+     * @param parent
      */
     public JDlgMpvUsuarios(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -24,7 +28,7 @@ public class JDlgMpvUsuarios extends javax.swing.JDialog {
     }
     
     public void habilitar(){
-        jTxtCodigo.setEnabled(true);
+        jTxtCodigo.setEnabled(false);
         jTxtNome.setEnabled(true);
         jTxtApelido.setEnabled(true);
         jFmtCpf.setEnabled(true);
@@ -100,6 +104,12 @@ public class JDlgMpvUsuarios extends javax.swing.JDialog {
         });
 
         jLabel2.setText("Nome");
+
+        jTxtNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTxtNomeActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Apelido");
 
@@ -320,22 +330,59 @@ public class JDlgMpvUsuarios extends javax.swing.JDialog {
         // TODO add your handling code here:
         habilitar();
     }//GEN-LAST:event_jBtnAlterarActionPerformed
-
+                              
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
-        desabilitar();
+        Usuarios usuario = new Usuarios();
+       // usuario.setMpvidUsuarios(Integer.parseInt(jTxtCodigo.getText()));
+        usuario.setMpvNome (jTxtNome.getText());
+        usuario.setMvpApelido(jTxtApelido.getText());
+        usuario.setMpvNivel(jCboNivel.getSelectedIndex());
+        usuario.setMpvCpf(jFmtCpf.getText());
+        usuario.setMpvAtivo(jChAtivo.isSelected()?"S": "N");//if
+        usuario.setMpvSenha(new String (jPwfSenha.getPassword()));
+        usuario.setMpvDataNascimento(Conversor.TextoDate( jFmtDataNascimento.getText()));
+        
+        
+       UsuariosDAO dao = new UsuariosDAO(); 
+       if (dao.insert(usuario)){
+           JOptionPane.showMessageDialog(this, "Usuario cadastrado com sucesso");
+       }else{
+            JOptionPane.showMessageDialog(this, "Erro ao cadastrar usuario,");
+       }
+        
+        desabilitar();     
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
-        // TODO add your handling code here:
-        JOptionPane.showConfirmDialog(null,"confirma exclusão do usuário?",
-                "Selecione a opção", 0);
+       int id = Integer.parseInt(
+       JOptionPane.showInputDialog(null, "Entre com o id do usuario"));
+       
+       
+       UsuariosDAO dao = new UsuariosDAO();
+       Usuarios usuarios = (Usuarios) dao.list(id);
+       
+       if(usuarios!=null){//encontrou no bd
+        int resp = JOptionPane.showConfirmDialog(null, "Deseja excluir o "
+                + "usuario?",
+        "confirmar", JOptionPane.YES_NO_OPTION);
+        
+        if (resp == JOptionPane.YES_OPTION){
+          dao.delete(id);
+        }                                                                                                                                                       
+       }else{
+           JOptionPane.showMessageDialog(this, "Usuarios nao encontrado!");
+       }
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
         // TODO add your handling code here:
         JOptionPane.showInputDialog(null, "Entre o codigo do usúario"); 
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
+
+    private void jTxtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTxtNomeActionPerformed
 
     /**
      * @param args the command line arguments
