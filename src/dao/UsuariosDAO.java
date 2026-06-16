@@ -30,7 +30,7 @@ public class UsuariosDAO extends DaoAbstract{
                      user ="marcos_vilhanueva";
                      password ="marcos_vilhanueva";
 
-                     Connection cnt;
+                     
                      cnt = DriverManager.getConnection(url, user, password);
     } catch (ClassNotFoundException ex) {
              Logger.getLogger(JdbcCrud.class.getName()).log(Level.SEVERE, null, ex);
@@ -94,7 +94,20 @@ public class UsuariosDAO extends DaoAbstract{
         try{
             PreparedStatement smt = cnt.prepareStatement(sql);
             smt.setInt(1, id);
-            smt.executeUpdate();   
+           //import java.sql.ResultSet;
+            ResultSet resp = smt.executeQuery(sql);
+            if(resp.next()){
+                usuarios = new Usuarios();
+                
+                usuarios.setMpvidUsuarios(resp.getInt("mpv_idusuarios"));
+                usuarios.setMpvNome(resp.getString("mpv_nome"));
+                 usuarios.setMvpApelido(resp.getString("mpv_apelido"));
+                usuarios.setMpvCpf(resp.getString("mpv_cpf"));
+                usuarios.setMpvDataNascimento(resp.getDate("mpv_data_nascimento"));
+                usuarios.setMpvNivel(resp.getInt("mpv_nivel"));
+                usuarios.setMpvSenha(resp.getString("mpv_senha"));
+                usuarios.setMpvAtivo(resp.getString("mpv_ativo"));
+            }
         }catch (SQLException ex ){
             return null;
         }

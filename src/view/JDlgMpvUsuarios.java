@@ -368,7 +368,7 @@ public class JDlgMpvUsuarios extends javax.swing.JDialog {
         "confirmar", JOptionPane.YES_NO_OPTION);
         
         if (resp == JOptionPane.YES_OPTION){
-          dao.delete(id);
+          dao.delete(usuarios);
         }                                                                                                                                                       
        }else{
            JOptionPane.showMessageDialog(this, "Usuarios nao encontrado!");
