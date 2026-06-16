@@ -327,6 +327,24 @@ public class JDlgMpvUsuarios extends javax.swing.JDialog {
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
        alterar=true;
         habilitar();
+          int id = Integer.parseInt(
+       JOptionPane.showInputDialog(null, "Entre com o id do usuario"));
+       
+       
+       UsuariosDAO dao = new UsuariosDAO();
+       Usuarios usuarios = (Usuarios) dao.list(id);
+       
+       if(usuarios!=null){
+           jTxtCodigo.setText(String.valueOf(usuarios.getMpvidUsuarios()));
+           jTxtNome.setText(usuarios.getMpvNome());
+           jTxtApelido.setText(usuarios.getMvpApelido());
+           jFmtCpf.setText(usuarios.getMpvCpf());
+           jFmtDataNascimento.setText(null);
+           jCboNivel.setSelectedItem(usuarios.getMpvNivel());
+           jPwfSenha.setText(usuarios.getMpvSenha());
+           jChAtivo.setSelected("S".equals(usuarios.getMpvAtivo()));
+       }
+        
     }//GEN-LAST:event_jBtnAlterarActionPerformed
                               
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
