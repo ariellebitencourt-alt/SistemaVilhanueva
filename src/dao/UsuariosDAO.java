@@ -68,7 +68,25 @@ public class UsuariosDAO extends DaoAbstract{
 
     @Override
     public void update(Object object) {
-        Usuarios UsuariosDAO = (Usuarios) object;
+        
+     try {
+         Usuarios usuarios = (Usuarios) object;
+         String sql = "UPDATE mpv_usuarios SET mpv_nome=?,"
+                 + "mpv_cpf=?, mpv_dataNascimento=?, mpv_nivel=?, mpv_senha=?,"
+                 + "mpv_ativo=? WHRE mpv_idusuarios=?";
+         
+         PreparedStatement pst = cnt.prepareStatement(sql);
+         pst.setString(1, usuarios.getMpvNome());
+         pst.setString(2, usuarios.getMpvCpf());
+         pst.setDate(4,(Date) usuarios.getMpvDataNascimento());
+         pst.setInt(5, usuarios.getMpvNivel());
+         pst.setString(6, usuarios.getMpvSenha());
+         pst.setString(7, usuarios.getMpvAtivo());
+         pst.setInt(8, usuarios.getMpvidUsuarios());
+     } catch (SQLException ex) {
+         Logger.getLogger(UsuariosDAO.class.getName()).log(Level.SEVERE, null, ex);
+     }
+        
     }
 
     @Override
@@ -95,7 +113,7 @@ public class UsuariosDAO extends DaoAbstract{
             PreparedStatement smt = cnt.prepareStatement(sql);
             smt.setInt(1, id);
            //import java.sql.ResultSet;
-            ResultSet resp = smt.executeQuery(sql);
+            ResultSet resp = smt.executeQuery();
             if(resp.next()){
                 usuarios = new Usuarios();
                 

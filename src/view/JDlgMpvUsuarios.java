@@ -15,10 +15,8 @@ import util.Conversor;
  */
 public class JDlgMpvUsuarios extends javax.swing.JDialog {
 
-    /**
-     * Creates new form JDlgMpvUsuarios
-     * @param parent
-     */
+    
+    boolean alterar = false;
     public JDlgMpvUsuarios(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -327,30 +325,34 @@ public class JDlgMpvUsuarios extends javax.swing.JDialog {
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
-        // TODO add your handling code here:
+       alterar=true;
         habilitar();
     }//GEN-LAST:event_jBtnAlterarActionPerformed
                               
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
-        Usuarios usuario = new Usuarios();
+        Usuarios usuarios = new Usuarios();
        // usuario.setMpvidUsuarios(Integer.parseInt(jTxtCodigo.getText()));
-        usuario.setMpvNome (jTxtNome.getText());
-        usuario.setMvpApelido(jTxtApelido.getText());
-        usuario.setMpvNivel(jCboNivel.getSelectedIndex());
-        usuario.setMpvCpf(jFmtCpf.getText());
-        usuario.setMpvAtivo(jChAtivo.isSelected()?"S": "N");//if
-        usuario.setMpvSenha(new String (jPwfSenha.getPassword()));
-        usuario.setMpvDataNascimento(Conversor.TextoDate( jFmtDataNascimento.getText()));
+        usuarios.setMpvNome (jTxtNome.getText());
+        usuarios.setMvpApelido(jTxtApelido.getText());
+        usuarios.setMpvNivel(jCboNivel.getSelectedIndex());
+        usuarios.setMpvCpf(jFmtCpf.getText());
+        usuarios.setMpvAtivo(jChAtivo.isSelected()?"S": "N");//if
+        usuarios.setMpvSenha(new String (jPwfSenha.getPassword()));
+        usuarios.setMpvDataNascimento(Conversor.TextoDate( jFmtDataNascimento.getText()));
         
         
        UsuariosDAO dao = new UsuariosDAO(); 
-       if (dao.insert(usuario)){
-           JOptionPane.showMessageDialog(this, "Usuario cadastrado com sucesso");
-       }else{
-            JOptionPane.showMessageDialog(this, "Erro ao cadastrar usuario,");
+       if(!alterar){
+            if (dao.insert(usuarios)){
+                JOptionPane.showMessageDialog(this, "Usuario cadastrado com sucesso");
+            }else{
+                 JOptionPane.showMessageDialog(this, "Erro ao cadastrar usuario,");
+            }
+       }else{//alterar está verdadeiro
+           dao.update(usuarios);
        }
-        
+   
         desabilitar();     
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
