@@ -396,8 +396,11 @@ public class JDlgMpvUsuarios extends javax.swing.JDialog {
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
-        // TODO add your handling code here:
-        JOptionPane.showInputDialog(null, "Entre o codigo do usúario"); 
+
+            // TODO add your handling code here:
+        JDlgMpvUsuarios telaListar = new JDlgMpvUsuarios(null, true);
+        telaListar.setVisible(true);
+        
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
 
     private void jTxtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtNomeActionPerformed
@@ -429,6 +432,9 @@ public class JDlgMpvUsuarios extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(JDlgMpvUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */

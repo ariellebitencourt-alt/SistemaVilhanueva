@@ -11,6 +11,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import teste.JdbcCrud;
@@ -135,31 +137,27 @@ public class UsuariosDAO extends DaoAbstract{
 
     @Override
     public Object listAll() {
-    try {
-             Class.forName("com.mysql.jdbc.Driver");
-                     String url, user, password;
-                     url ="jdbc:mysql://10.7.0.51:33062/db_marcos_vilhanueva";
-                     user ="marcos_vilhanueva";
-                     password ="marcos_vilhanueva";
-
-                     Connection cnt;
-                     cnt = DriverManager.getConnection(url, user, password);
-                             
-                String sql= "select * from mpv_usuarios";                
-              PreparedStatement pst = cnt.prepareStatement(sql);
-              ResultSet rs = pst.executeQuery();
-              while(rs.next()== true) {
-                  System.out.println("id:"+rs.getInt("mpv_idusuarios"));
-             System.out.println("nome:"+rs.getString("mpv_nome"));
-         }
-              
-              
-         } catch (ClassNotFoundException ex) {
-             Logger.getLogger(JdbcCrud.class.getName()).log(Level.SEVERE, null, ex);
-         } catch (SQLException ex) {
-             Logger.getLogger(JdbcCrud.class.getName()).log(Level.SEVERE, null, ex);
-         }
-         return null;
+         List lista = new ArrayList();
+         String sql = "SELECT * FROM mpv_usuarios";
+        try{
+            PreparedStatement smt = cnt.prepareStatement(sql);
+            ResultSet resp = smt.executeQuery();
+            while(resp.next()){
+                Usuarios usuarios = new Usuarios();
+                usuarios.setMpvidUsuarios(resp.getInt("mpv_idusuarios"));
+                usuarios.setMpvNome(resp.getString("mpv_nome"));
+                 usuarios.setMvpApelido(resp.getString("mpv_apelido"));
+                usuarios.setMpvCpf(resp.getString("mpv_cpf"));
+                usuarios.setMpvDataNascimento(resp.getDate("mpv_data_nascimento"));
+                usuarios.setMpvNivel(resp.getInt("mpv_nivel"));
+                usuarios.setMpvSenha(resp.getString("mpv_senha"));
+                usuarios.setMpvAtivo(resp.getString("mpv_ativo"));
+                lista.add(usuarios);
+            }
+        }catch (SQLException ex ){
+            return null;
+        }
+        return lista;
     }
-  
+    
 }
